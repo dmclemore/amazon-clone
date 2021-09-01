@@ -2,14 +2,17 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import { useStateValue } from "./StateProvider";
 
 const Header = () => {
+    const [{ cart }, dispatch] = useStateValue();
     return (
         <div className="Header">
             <Link to="/">
                 <img
                     src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
                     className="Header-logo"
+                    alt="Amazon"
                 />
             </Link>
             <form className="Header-search">
@@ -29,10 +32,10 @@ const Header = () => {
                     <span className="Header-linkLineOne">Your</span>
                     <span className="Header-linkLineTwo">Prime</span>
                 </div>
-                <Link to="/checkout" className="Header-basket">
+                <Link to="/checkout" className="Header-cart">
                     <ShoppingBasketIcon />
-                    <span className="Header-linkLineTwo Header-basketCount">
-                        0
+                    <span className="Header-linkLineTwo Header-cartCount">
+                        {cart.length}
                     </span>
                 </Link>
             </div>

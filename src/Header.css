@@ -57,13 +57,14 @@
     font-weight: 800;
 }
 
-.Header-basket {
+.Header-cart {
     display: flex;
     align-items: center;
     color: white;
+    text-decoration: none;
 }
 
-.Header-basketCount {
+.Header-cartCount {
     margin-left: 5px;
     margin-right: 10px;
 }
