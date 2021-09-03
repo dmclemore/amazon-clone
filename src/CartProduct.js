@@ -1,7 +1,7 @@
-import "./CheckoutProduct.css";
+import "./CartProduct.css";
 import { useStateValue } from "./StateProvider";
 
-const CheckoutProduct = ({ id, image, title, price, rating }) => {
+const CartProduct = ({ id, image, title, price, rating }) => {
     const [{ cart }, dispatch] = useStateValue();
 
     const removeFromCart = () => {
@@ -12,25 +12,22 @@ const CheckoutProduct = ({ id, image, title, price, rating }) => {
     };
 
     return (
-        <div className="CheckoutProduct">
-            <img src={image} alt="Product" className="CheckoutProduct-image" />
-            <div className="CheckoutProduct-info">
+        <div className="CartProduct">
+            <img src={image} alt="Product" className="CartProduct-image" />
+            <div className="CartProduct-info">
                 <p>{title}</p>
-                <p className="Checkoutroduct-price">
+                <p className="Cartroduct-price">
                     <small>$</small>
                     <strong>{price}</strong>
                 </p>
-                <div className="CheckoutProduct-rating">
+                <div className="CartProduct-rating">
                     {Array(rating)
                         .fill()
                         .map((_, i) => (
                             <p key={i}>⭐️</p>
                         ))}
                 </div>
-                <button
-                    className="CheckoutProduct-button"
-                    onClick={removeFromCart}
-                >
+                <button className="CartProduct-button" onClick={removeFromCart}>
                     Remove from Cart
                 </button>
             </div>
@@ -38,4 +35,4 @@ const CheckoutProduct = ({ id, image, title, price, rating }) => {
     );
 };
 
-export default CheckoutProduct;
+export default CartProduct;

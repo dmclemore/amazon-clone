@@ -31,7 +31,7 @@ const Header = () => {
                 <Link to={!user && "/login"} className="noDecor">
                     <div className="Header-link" onClick={handleAuth}>
                         <span className="Header-linkLineOne">
-                            Hello {user ? "user" : "Guest"}
+                            Hello, {user ? user.email : "Guest"}
                         </span>
                         <span className="Header-linkLineTwo">
                             {user ? "Sign Out" : "Sign In"}
@@ -46,7 +46,7 @@ const Header = () => {
                     <span className="Header-linkLineOne">Your</span>
                     <span className="Header-linkLineTwo">Prime</span>
                 </div>
-                <Link to="/checkout" className="Header-cart">
+                <Link to="/cart" className="Header-cart">
                     <ShoppingBasketIcon />
                     <span className="Header-linkLineTwo Header-cartCount">
                         {cart.length}

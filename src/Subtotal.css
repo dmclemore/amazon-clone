@@ -19,7 +19,11 @@
     margin-right: 5px;
 }
 
-.Subtotal > button {
+.Subtotal-gift > input:hover {
+    cursor: pointer;
+}
+
+.Subtotal-button {
     background: #f0c14b;
     border-radius: 2px;
     width: 100%;
@@ -28,4 +32,8 @@
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
+}
+
+.Subtotal-button:hover {
+    cursor: pointer;
 }

@@ -1,15 +1,15 @@
-.CheckoutProduct {
+.CartProduct {
     display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.CheckoutProduct-info {
+.CartProduct-info {
     padding-left: 20px;
     padding-right: 20px;
 }
 
-.CheckoutProduct-button {
+.CartProduct-button {
     background: #f0c14b;
     border: 1px solid;
     margin-top: 10px;
@@ -17,17 +17,21 @@
     color: #111;
 }
 
-.CheckoutProduct-image {
+.CartProduct-button:hover {
+    cursor: pointer;
+}
+
+.CartProduct-image {
     object-fit: contain;
     min-width: 180px;
     height: 180px;
 }
 
-.CheckoutProduct-rating {
+.CartProduct-rating {
     display: flex;
 }
 
-.CheckoutProduct-title {
+.CartProduct-title {
     font-size: 17px;
     font-weight: 800;
 }
