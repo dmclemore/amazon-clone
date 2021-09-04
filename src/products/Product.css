@@ -10,6 +10,12 @@
     min-width: 100px;
     background-color: white;
     z-index: 1;
+    transition: all 0.2s ease-in-out;
+}
+
+.Product:hover {
+    transform: scale(1.025);
+    box-shadow: 2px 2px 25px 1px;
 }
 
 .Product-info {
