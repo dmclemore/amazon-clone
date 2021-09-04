@@ -1,13 +1,13 @@
 import "./Checkout.css";
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useStateValue } from "./StateProvider";
+import { useStateValue } from "./helpers/StateProvider";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { getCartTotal } from "./reducer";
-import { db } from "./firebase";
-import axios from "./axios";
+import { getCartTotal } from "./helpers/reducer";
+import { db } from "./helpers/firebase";
+import axios from "./helpers/axios";
 import CurrencyFormat from "react-currency-format";
-import CartProduct from "./CartProduct";
+import CartProduct from "./products/CartProduct";
 
 const BASE_URL = "http://localhost:5001/clone-269c4/us-central1/api";
 

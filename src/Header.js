@@ -2,8 +2,8 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import { useStateValue } from "./StateProvider";
-import { auth } from "./firebase";
+import { useStateValue } from "./helpers/StateProvider";
+import { auth } from "./helpers/firebase";
 
 const Header = () => {
     const [{ cart, user }, dispatch] = useStateValue();

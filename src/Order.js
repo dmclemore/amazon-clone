@@ -1,6 +1,6 @@
 import "./Order.css";
 import moment from "moment";
-import CartProduct from "./CartProduct";
+import CartProduct from "./products/CartProduct";
 import CurrencyFormat from "react-currency-format";
 
 const Order = ({ order }) => {

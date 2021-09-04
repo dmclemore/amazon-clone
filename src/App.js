@@ -1,8 +1,8 @@
 import "./App.css";
 import { useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { auth } from "./firebase";
-import { useStateValue } from "./StateProvider";
+import { auth } from "./helpers/firebase";
+import { useStateValue } from "./helpers/StateProvider";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Header from "./Header";

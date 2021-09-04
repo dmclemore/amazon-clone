@@ -1,7 +1,7 @@
 import "./Cart.css";
-import { useStateValue } from "./StateProvider";
+import { useStateValue } from "./helpers/StateProvider";
 import Subtotal from "./Subtotal";
-import CartProduct from "./CartProduct";
+import CartProduct from "./products/CartProduct";
 
 const Cart = () => {
     const [{ cart }, dispatch] = useStateValue();
