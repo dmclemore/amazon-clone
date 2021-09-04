@@ -44,10 +44,12 @@ const Header = () => {
                         <span className="Header-linkLineTwo">& Orders</span>
                     </div>
                 </Link>
-                <div className="Header-link">
-                    <span className="Header-linkLineOne">Your</span>
-                    <span className="Header-linkLineTwo">Prime</span>
-                </div>
+                <Link to={user ? "/profile" : "/login"} className="noDecor">
+                    <div className="Header-link">
+                        <span className="Header-linkLineOne">Your</span>
+                        <span className="Header-linkLineTwo">Prime</span>
+                    </div>
+                </Link>
                 <Link to="/cart" className="Header-cart">
                     <ShoppingBasketIcon />
                     <span className="Header-linkLineTwo Header-cartCount">

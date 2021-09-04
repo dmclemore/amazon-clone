@@ -30,11 +30,15 @@ const Orders = () => {
     return (
         <div className="Orders">
             <h1>Orders</h1>
-            {console.log(orders)}
             <div className="Orders-order">
                 {orders.map(order => (
                     <Order order={order} />
                 ))}
+                {orders.length === 0 ? (
+                    <div className="Order">
+                        <h2>You have not ordered anything yet!</h2>
+                    </div>
+                ) : null}
             </div>
         </div>
     );

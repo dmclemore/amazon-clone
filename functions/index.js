@@ -1,10 +1,8 @@
 const functions = require("firebase-functions");
 const express = require("express");
 const cors = require("cors");
-// NEED TO HIDE
 const stripe = require("stripe")(
-    `sk_test_51JVfTmFSTiEYf6jzZxWpo4Tcj16Cs9Ce7mPSSe8CXatS
-    l9IA6MP8ePCv2J84MzRsuA3rYFIyg6ZzNprbxJc6Nop700ToUsOnxh`,
+    `sk_test_51JVfTmFSTiEYf6jzZxWpo4Tcj16Cs9Ce7mPSSe8CXatSl9IA6MP8ePCv2J84MzRsuA3rYFIyg6ZzNprbxJc6Nop700ToUsOnxh`,
 );
 const app = express();
 

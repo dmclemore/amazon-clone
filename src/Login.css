@@ -74,3 +74,8 @@
     border: 1px solid lightgray;
     margin-top: 10px;
 }
+
+.Login-signinButton:hover,
+.Login-newButton:hover {
+    cursor: pointer;
+}

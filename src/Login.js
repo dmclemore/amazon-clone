@@ -10,7 +10,6 @@ const Login = () => {
 
     const signIn = e => {
         e.preventDefault();
-        // firebase login
         auth.signInWithEmailAndPassword(email, password)
             .then(res => {
                 if (res) {
@@ -25,7 +24,7 @@ const Login = () => {
         auth.createUserWithEmailAndPassword(email, password)
             .then(res => {
                 if (res) {
-                    history.push("/");
+                    history.push("/profile");
                 }
             })
             .catch(error => alert(error.message));

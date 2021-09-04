@@ -11,6 +11,7 @@ import Cart from "./Cart";
 import Login from "./Login";
 import Checkout from "./Checkout";
 import Orders from "./Orders";
+import Profile from "./Profile";
 
 // Public stripe key
 const promise = loadStripe(
@@ -56,6 +57,10 @@ const App = () => {
                     <Route path="/orders">
                         <Header />
                         <Orders />
+                    </Route>
+                    <Route path="/profile">
+                        <Header />
+                        <Profile />
                     </Route>
                     <Route path="/">
                         <Header />

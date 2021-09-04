@@ -9,8 +9,6 @@ import axios from "./helpers/axios";
 import CurrencyFormat from "react-currency-format";
 import CartProduct from "./products/CartProduct";
 
-const BASE_URL = "http://localhost:5001/clone-269c4/us-central1/api";
-
 const Checkout = () => {
     const [{ user, cart }, dispatch] = useStateValue();
     const [error, setError] = useState(null);
@@ -18,17 +16,37 @@ const Checkout = () => {
     const [succeeded, setSucceeded] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [clientSecret, setClientSecret] = useState(null);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [streetAddress, setStreetAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zipCode, setZipCode] = useState("");
     const stripe = useStripe();
     const elements = useElements();
     const history = useHistory();
 
     useEffect(() => {
+        if (user) {
+            const userData = db.collection("users").doc(user?.uid);
+            userData.get().then(doc => {
+                if (doc.data()) {
+                    setFirstName(doc.data().firstName);
+                    setLastName(doc.data().lastName);
+                    setStreetAddress(doc.data().streetAddress);
+                    setCity(doc.data().city);
+                    setState(doc.data().state);
+                    setZipCode(doc.data().zipCode);
+                }
+            });
+        }
+    }, [user]);
+
+    useEffect(() => {
         const getClientSecret = async () => {
             const response = await axios({
                 method: "post",
-                url: `${BASE_URL}/payments/create?total=${
-                    getCartTotal(cart) * 100
-                }`,
+                url: `/payments/create?total=${getCartTotal(cart) * 100}`,
             });
             setClientSecret(response.data.clientSecret);
         };
@@ -50,8 +68,7 @@ const Checkout = () => {
                     .collection("orders")
                     .doc(paymentIntent.id)
                     .set({
-                        // throws an error. says field value is undefined. fix
-                        // cart: cart,
+                        cart: cart,
                         amount: paymentIntent.amount,
                         created: paymentIntent.created,
                     });
@@ -81,7 +98,6 @@ const Checkout = () => {
                     </Link>
                     )
                 </h1>
-                {/* items */}
                 <div className="Checkout-section">
                     <div className="Checkout-title">
                         <h3>Review Items And Delivery</h3>
@@ -99,19 +115,56 @@ const Checkout = () => {
                         ))}
                     </div>
                 </div>
-                {/* delivery address */}
                 <div className="Checkout-section">
                     <div className="Checkout-title">
                         <h3>Delivery Address</h3>
                     </div>
                     <div className="Checkout-address">
-                        <p>{user?.email}</p>
-                        <p>123 Main Street</p>
-                        <p>Ann Arbor, MI 48198</p>
+                        <h5>First Name</h5>
+                        <input
+                            type="text"
+                            className="Profile-input"
+                            value={firstName}
+                            onChange={e => setFirstName(e.target.value)}
+                        />
+                        <h5>Last Name</h5>
+                        <input
+                            type="text"
+                            className="Profile-input"
+                            value={lastName}
+                            onChange={e => setLastName(e.target.value)}
+                        />
+                        <h5>Street Address</h5>
+                        <input
+                            type="text"
+                            className="Profile-input"
+                            value={streetAddress}
+                            onChange={e => setStreetAddress(e.target.value)}
+                        />
+                        <h5>City</h5>
+                        <input
+                            type="text"
+                            className="Profile-input"
+                            value={city}
+                            onChange={e => setCity(e.target.value)}
+                        />
+                        <h5>State</h5>
+                        <input
+                            type="text"
+                            className="Profile-input"
+                            value={state}
+                            onChange={e => setState(e.target.value)}
+                        />
+                        <h5>Zip Code</h5>
+                        <input
+                            type="text"
+                            className="Profile-input"
+                            value={zipCode}
+                            onChange={e => setZipCode(e.target.value)}
+                        />
                     </div>
                 </div>
-                {/* payment */}
-                <div className="Checkout-section">
+                <div className="Checkout-section noBottom">
                     <div className="Checkout-title">
                         <h3>Payment</h3>
                     </div>
@@ -131,6 +184,7 @@ const Checkout = () => {
                                     thousandSeparator={true}
                                     prefix={"$"}
                                 />
+                                {error && <div>{error}</div>}
                                 <button
                                     disabled={
                                         processing || disabled || succeeded
@@ -143,7 +197,6 @@ const Checkout = () => {
                                             : "Submit Order"}
                                     </span>
                                 </button>
-                                {error && <div>{error}</div>}
                             </div>
                         </form>
                     </div>
