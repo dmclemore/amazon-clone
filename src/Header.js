@@ -38,10 +38,12 @@ const Header = () => {
                         </span>
                     </div>
                 </Link>
-                <div className="Header-link">
-                    <span className="Header-linkLineOne">Returns</span>
-                    <span className="Header-linkLineTwo">& Orders</span>
-                </div>
+                <Link to="/orders" className="noDecor">
+                    <div className="Header-link">
+                        <span className="Header-linkLineOne">Returns</span>
+                        <span className="Header-linkLineTwo">& Orders</span>
+                    </div>
+                </Link>
                 <div className="Header-link">
                     <span className="Header-linkLineOne">Your</span>
                     <span className="Header-linkLineTwo">Prime</span>

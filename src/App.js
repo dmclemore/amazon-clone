@@ -10,6 +10,7 @@ import Home from "./Home";
 import Cart from "./Cart";
 import Login from "./Login";
 import Checkout from "./Checkout";
+import Orders from "./Orders";
 
 // Public stripe key
 const promise = loadStripe(
@@ -17,7 +18,7 @@ const promise = loadStripe(
 );
 
 const App = () => {
-    const [{}, dispatch] = useStateValue();
+    const [{ user }, dispatch] = useStateValue();
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
@@ -33,7 +34,7 @@ const App = () => {
                 });
             }
         });
-    }, []);
+    }, [user]);
 
     return (
         <BrowserRouter>
@@ -51,6 +52,10 @@ const App = () => {
                         <Elements stripe={promise}>
                             <Checkout />
                         </Elements>
+                    </Route>
+                    <Route path="/orders">
+                        <Header />
+                        <Orders />
                     </Route>
                     <Route path="/">
                         <Header />

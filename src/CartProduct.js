@@ -1,7 +1,7 @@
 import "./CartProduct.css";
 import { useStateValue } from "./StateProvider";
 
-const CartProduct = ({ id, image, title, price, rating }) => {
+const CartProduct = ({ id, image, title, price, rating, hideButton }) => {
     const [{ cart }, dispatch] = useStateValue();
 
     const removeFromCart = () => {
@@ -27,9 +27,14 @@ const CartProduct = ({ id, image, title, price, rating }) => {
                             <p key={i}>⭐️</p>
                         ))}
                 </div>
-                <button className="CartProduct-button" onClick={removeFromCart}>
-                    Remove from Cart
-                </button>
+                {!hideButton && (
+                    <button
+                        className="CartProduct-button"
+                        onClick={removeFromCart}
+                    >
+                        Remove from Cart
+                    </button>
+                )}
             </div>
         </div>
     );

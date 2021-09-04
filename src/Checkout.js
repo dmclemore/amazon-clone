@@ -4,9 +4,12 @@ import { Link, useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { getCartTotal } from "./reducer";
-import axios from "axios";
+import { db } from "./firebase";
+import axios from "./axios";
 import CurrencyFormat from "react-currency-format";
 import CartProduct from "./CartProduct";
+
+const BASE_URL = "http://localhost:5001/clone-269c4/us-central1/api";
 
 const Checkout = () => {
     const [{ user, cart }, dispatch] = useStateValue();
@@ -21,9 +24,12 @@ const Checkout = () => {
 
     useEffect(() => {
         const getClientSecret = async () => {
-            const response = await axios.post(
-                `/payments/create?total=${getCartTotal(cart) * 100}`
-            );
+            const response = await axios({
+                method: "post",
+                url: `${BASE_URL}/payments/create?total=${
+                    getCartTotal(cart) * 100
+                }`,
+            });
             setClientSecret(response.data.clientSecret);
         };
         getClientSecret();
@@ -33,15 +39,29 @@ const Checkout = () => {
         event.preventDefault();
         setProcessing(true);
         const payload = await stripe
-            .confirmCartPayment(clientSecret, {
+            .confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardElement),
                 },
             })
             .then(({ paymentIntent }) => {
+                db.collection("users")
+                    .doc(user?.uid)
+                    .collection("orders")
+                    .doc(paymentIntent.id)
+                    .set({
+                        // throws an error. says field value is undefined. fix
+                        // cart: cart,
+                        amount: paymentIntent.amount,
+                        created: paymentIntent.created,
+                    });
                 setSucceeded(true);
                 setError(null);
                 setProcessing(false);
+
+                dispatch({
+                    type: "EMPTY_CART",
+                });
                 history.replace("/orders");
             });
     };
@@ -101,12 +121,9 @@ const Checkout = () => {
                             <div className="Checkout-price">
                                 <CurrencyFormat
                                     renderText={value => (
-                                        <>
-                                            <p>
-                                                Total ({cart.length} items):
-                                                <strong> {value}</strong>
-                                            </p>
-                                        </>
+                                        <h3>
+                                            Total ({cart.length} items): {value}
+                                        </h3>
                                     )}
                                     decimalScale={2}
                                     value={getCartTotal(cart)}
@@ -118,6 +135,7 @@ const Checkout = () => {
                                     disabled={
                                         processing || disabled || succeeded
                                     }
+                                    className="Checkout-button"
                                 >
                                     <span>
                                         {processing
